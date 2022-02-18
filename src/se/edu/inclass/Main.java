@@ -19,8 +19,10 @@ public class Main {
 
         System.out.println("Printing deadlines");
         printDeadlines(tasksData);
-
+//        printDataWithStream(tasksData);
+//        printDeadlineWithStream(tasksData);
         System.out.println("Total number of deadlines: " + countDeadlines(tasksData));
+        System.out.println("total number of deadlines using streams: "+countDeadlinesWithStream(tasksData));
 
 
 //        printDeadlinesWithStream(tasksData);
@@ -39,6 +41,17 @@ public class Main {
         return count;
     }
 
+    private static int countDeadlinesWithStream(ArrayList<Task> tasks) {
+        System.out.println("counting data with stream");
+        int count =0;
+        count = (int) tasks.stream()
+                .filter((t)-> t instanceof Deadline)
+                .count();
+        //the stream returns a long value so we need to typecast it into the int
+        return count;
+
+    }
+
     public static void printData(ArrayList<Task> tasksData) {
         for (Task t : tasksData) {
             System.out.println(t);
@@ -48,12 +61,20 @@ public class Main {
     public static void printDeadlinesWithStream(ArrayList<Task> tasks) {
         System.out.println("printing deadlines with streams sorted");
         tasks.stream()
-                .filter((t)-> t instanceof Deadline)
-                .sorted((a,b)-> a.getDescription().toLowerCase().compareTo(b.getDescription().toLowerCase()))
+                .filter((t) -> t instanceof Deadline)
+                .sorted((a, b) -> a.getDescription().toLowerCase().compareTo(b.getDescription().toLowerCase()))
                 .forEach(System.out::println);
         //the lambda here takes two parameters to compare the two descriptions
-
     }
+    public static void printDataWithStream(ArrayList<Task> tasks) {
+        System.out.println("Print tasks using streams");
+        tasks.stream()
+                .forEach(System.out::println);
+        //colon says this is the print method object that we want to execute
+        //the stream will print based on this object
+    }
+
+
 
     public static void printDeadlines(ArrayList<Task> tasksData) {
         for (Task t : tasksData) {

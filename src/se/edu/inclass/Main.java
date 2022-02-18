@@ -17,7 +17,8 @@ public class Main {
 
         System.out.println("Printing deadlines");
         printDeadlines(tasksData);
-
+//        printDataWithStream(tasksData);
+//        printDeadlineWithStream(tasksData);
         System.out.println("Total number of deadlines: " + countDeadlines(tasksData));
         System.out.println("total number of deadlines using streams: "+countDeadlinesWithStream(tasksData));
 
@@ -43,10 +44,29 @@ public class Main {
         return count;
 
     }
+
     public static void printData(ArrayList<Task> tasksData) {
         for (Task t : tasksData) {
             System.out.println(t);
         }
+    }
+
+    public static void printDataWithStream(ArrayList<Task> tasks) {
+        System.out.println("Print tasks using streams");
+        tasks.stream()
+                .forEach(System.out::println);
+        //colon says this is the print method object that we want to execute
+        //the stream will print based on this object
+    }
+
+    public static void printDeadlineWithStream(ArrayList<Task> tasks) {
+        System.out.println("Printing deadlines using streams");
+        tasks.stream()
+                .filter((t) -> t instanceof Deadline)
+                //this is called a lambda - which is an anonymous function
+                //for each task if it is an instance of deadline then print
+                .forEach(System.out::println);
+                //we need to filter such that we get an instance of the deadline
     }
 
     public static void printDeadlines(ArrayList<Task> tasksData) {

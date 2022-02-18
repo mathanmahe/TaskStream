@@ -32,6 +32,16 @@ public class Main {
         return count;
     }
 
+    private static int countDeadlinesWithStream(ArrayList<Task> tasks) {
+        System.out.println("counting data with stream");
+        int count =0;
+        count = (int) tasks.stream()
+                .filter((t)-> t instanceof Deadline)
+                .count();
+        //the stream returns a long value so we need to typecast it into the int
+        return count;
+
+    }
     public static void printData(ArrayList<Task> tasksData) {
         for (Task t : tasksData) {
             System.out.println(t);
